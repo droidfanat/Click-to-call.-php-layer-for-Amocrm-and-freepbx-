@@ -2,6 +2,7 @@
 
 namespace src\Models;
 
+
 /**
  * Description of newPHPClass
  *
@@ -9,8 +10,14 @@ namespace src\Models;
  */
 abstract class MyAmo {
 
-    public function __construct() {
-        $this->subdomain = 'domen'; #Наш аккаунт - поддомен
+    public function __construct($subdomain,$login,$hash) {
+        if(empty($subdomain) or empty($login) or empty($hash) ){
+            exit();
+        }
+            
+        $this->subdomain = $subdomain; #Наш аккаунт - поддомен
+        $this->login = $login;
+        $this->hash = $hash;
         $this->autch();
     }
 
@@ -18,15 +25,15 @@ abstract class MyAmo {
 
     public function autch() {
         $user = array(
-            'USER_LOGIN' => 'admin@...', #Ваш логин (электронная почта)
-            'USER_HASH' => '7dde7a93bd13877c...' #Хэш для доступа к API (смотрите в профиле пользователя)
+            'USER_LOGIN' => $this->login, 
+            'USER_HASH' =>  $this->hash 
         );
         $link = 'https://' . $this->subdomain . '.amocrm.ru/private/api/auth.php?type=json';
         $this->amocurl($link, $user);
     }
 
     public function amocurl($link, $query) {
-        print_r(json_encode($query));
+
        
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -59,9 +66,9 @@ abstract class MyAmo {
         try {
             if ($code != 200 && $code != 204)
                 throw new Exception(isset($errors[$code]) ? $errors[$code] : 'Undescribed error', (int) $code);
-            return json_decode($out);
+            return $out;
         } catch (Exception $E) {
-            die('Ошибка: ' . $E->getMessage() . PHP_EOL . 'Код ошибки: ' . $E->getCode());
+            die('Error: ' . $E->getMessage() . PHP_EOL . 'Error cod: ' . $E->getCode());
             return array();
         }
     }
