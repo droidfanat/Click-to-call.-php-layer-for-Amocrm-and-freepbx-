@@ -1,0 +1,20 @@
+{
+    "name": "root/htdocs",
+    "type": "project",
+    "license": "gnu",
+    "authors": [
+        {
+            "name": "erik",
+            "email": "xdoom88@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "dotzero/amocrm": "dev-master"
+    },
+        "autoload": {
+        "psr-0": {
+            "src\\Models\\":        "src"     
+        }
+    }
+}
