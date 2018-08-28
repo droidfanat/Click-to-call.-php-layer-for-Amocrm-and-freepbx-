@@ -7,16 +7,17 @@ require_once __DIR__ . '/src/ModelRecords.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-define('USER_LOGIN', 'admin@**'); // admin user login
-define('USER_HASH', '7dde7a93bd13877c73bbe...'); // admin user api hash
-define('SUBDOMAIN', 'domain'); // sub domain  you company
+define('USER_LOGIN', 'admin@**'); // admin user login.
+define('USER_HASH', '7dde7a93bd13877c73bbe...'); // admin user api hash.
+define('SUBDOMAIN', 'domain'); // sub domain  you company.
 
+$listIpAllows=array('127.0.0.1'); // list ip addresses you asterisk servers.
 
         
+//uncomment to debug
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-$listIpAllows=array('127.0.0.1');
 
 abstract class card {
 
