@@ -7,13 +7,16 @@ require_once __DIR__ . '/src/ModelRecords.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-define('USER_LOGIN', 'admin@***.com');
-define('USER_HASH', '7dde7a93bd13877****');
-define('SUBDOMAIN', 'domain');
+define('USER_LOGIN', 'admin@1stlfs.com');
+define('USER_HASH', '7dde7a93bd13877c73bbe89f3bd0ddc0');
+define('SUBDOMAIN', 'lfs');
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 
+        
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$listIpAllows=array('127.0.0.1');
 
 abstract class card {
 
@@ -85,13 +88,29 @@ class call extends card {
         foreach ($record as $key => $value) {
             $log .= '  ' . $key . ' =>  ' . $value;
         }
-        $this->logger->warning($log);
+        $this->logger->addInfo($log);
         $AmoRegust = new src\Models\ModelRecords(SUBDOMAIN, USER_LOGIN, USER_HASH);
-        $this->logger->warning('Response '.$AmoRegust->query($record));
+        $this->logger->addInfo('Response '.$AmoRegust->query($record));
     }
 
 }
 
+
 $logger = new Logger('call-card');
-$logger->pushHandler(new StreamHandler('./call-api.log', Logger::WARNING));
+$logger->pushHandler(new StreamHandler('./call-api.log', Logger::INFO));
+
+function getRemoteIPAddress () {
+    $ip = isset ($_SERVER ['REMOTE_ADDR'])? $_SERVER ['REMOTE_ADDR']: '';
+    return $ip;
+}
+
+foreach ($listIpAllows as $ip){
+    if (getRemoteIPAddress()!=$ip){
+       $logger->addWarning('access denied for this  ip: '.getRemoteIPAddress());
+        exit ();
+    }
+}
+
+
+
 $call = new call($logger);
