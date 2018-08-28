@@ -10,7 +10,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "dotzero/amocrm": "dev-master"
+        "dotzero/amocrm": "dev-master",
+        "monolog/monolog": "1.x-dev"
     },
         "autoload": {
         "psr-0": {
