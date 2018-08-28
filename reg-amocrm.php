@@ -7,9 +7,9 @@ require_once __DIR__ . '/src/ModelRecords.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-define('USER_LOGIN', 'admin@1stlfs.com');
-define('USER_HASH', '7dde7a93bd13877c73bbe89f3bd0ddc0');
-define('SUBDOMAIN', 'lfs');
+define('USER_LOGIN', 'admin@**'); // admin user login
+define('USER_HASH', '7dde7a93bd13877c73bbe...'); // admin user api hash
+define('SUBDOMAIN', 'domain'); // sub domain  you company
 
 
         
